@@ -2,7 +2,7 @@ package pasmina
 
 class Cart {
 
-    int productCode
+    int productId
     int totalQuantity
     int totalPrice
     int userId

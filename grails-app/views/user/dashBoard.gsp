@@ -268,8 +268,15 @@ function saveProduct(productId,userId) {
            data: {pId:productId,uId:userId},
 
            success: function(response){
-              console.log(response);
-              alert("Successfully Saved!!")
+              //console.log(response);
+              var saved = response;
+              console.log("Saved:"+saved);
+              if($.trim(saved) == 'true'){
+              alert("Successfully Saved!!");
+                }
+                else{
+                  alert ("Item already in the saved list!!");
+                }
 
            },
            error: function(response) {
@@ -287,7 +294,14 @@ function addToCart(productId,userId) {
 
            success: function(response){
               console.log(response);
-              alert("Successfully Added To Cart!!")
+              var added = response;
+              console.log("added:"+added)
+              if($.trim(added) == 'true'){
+              alert("Successfully Added To Cart!!");
+                }
+                else{
+                  alert("Item out of stock!!");
+                }
 
            },
            error: function(response) {

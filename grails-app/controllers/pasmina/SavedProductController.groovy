@@ -3,19 +3,26 @@ package pasmina
 class SavedProductController {
 
    def saveProduct(){
-       println("Inside save product!!")
+
         def pId = Integer.parseInt(params?.pId)
-       println "pId = $pId"
         def uId = Integer.parseInt(params?.uId)
-       println "uId = $uId"
+        def itemSaved
 
-       SavedProduct savedProduct = new SavedProduct()
+       def alreadySaved = SavedProduct?.findByProductIdAndUserId(pId,uId)
 
-       savedProduct.productId = pId
-       savedProduct.userId = uId
-       println 'saved!'
-       savedProduct.save(failOnError: true)
+        if(alreadySaved){
+            itemSaved = false
+            render itemSaved
+       }
+        else {
+           SavedProduct savedProduct = new SavedProduct()
 
-       render 'Saved'
+           savedProduct.productId = pId
+           savedProduct.userId = uId
+
+            savedProduct.save(failOnError: true)
+            itemSaved = true
+            render itemSaved
+        }
    }
 }
