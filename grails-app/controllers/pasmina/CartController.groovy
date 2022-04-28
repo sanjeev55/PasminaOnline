@@ -18,11 +18,6 @@ class CartController {
         def itemAdded
         if (availableQuantity > 0) {
 
-            availableQuantity = availableQuantity-1
-            product.availableQuantity = availableQuantity
-
-            product.save(failOnError: true)
-
             itemAdded = true
         if (totalQuantity > 0) {
 
