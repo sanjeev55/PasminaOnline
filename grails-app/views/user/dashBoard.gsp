@@ -112,12 +112,19 @@
             <ul class="pricing-wrapper">
                 <li data-type="monthly" class="is-visible">
                     <header class="pricing-header">
-                        <div class="save-product">
-                            <button onclick="saveProduct(${i.id},${u.id})">Save</button>
+                        <table style="width: 100%">
+                            <tr>
+                        <th><div class="save-product">
+                            <button onclick="saveProduct(${i.id},${u.id})" title="Save" ><g:img dir="images" file="heart.png" width="40" height="40"/></button>
                         </div>
+                        </th>
+                         <th>
                         <div class="cart-product">
-                            <button onclick="addToCart(${i.id},${u.id})">Add to Cart</button>
+                            <button onclick="addToCart(${i.id},${u.id})" title="Add to Cart"><g:img dir="images" file="cart.png" width="40" height="40"/></button>
                         </div>
+                        </th>
+                        </tr>
+                        </table>
                         <h2>${i.productName}</h2>
                         <div class="price">
                           <img src="${createLink(controller: "product", action: 'showImage', params:[id:i?.id])}" height="220px" width="150px">
@@ -133,10 +140,10 @@
                         </ul>
                     </div>
                     <footer class="pricing-footer">
-                        <a class="select" href="#">Buy</a>
+                        <g:link class="select" controller="boughtProduct" action="buyProduct" params="[pId:i.id, uId:u.id]">Buy</g:link>
                     </footer>
                 </li>
-                <li data-type="yearly" class="is-hidden">
+              %{--  <li data-type="yearly" class="is-hidden">
                     <header class="pricing-header">
                         <h2>Basic</h2>
                         <div class="price">
@@ -158,7 +165,7 @@
                     <footer class="pricing-footer">
                         <a class="select" href="#">Buy</a>
                     </footer>
-                </li>
+                </li>--}%
             </ul>
         </li>
     </g:each>
@@ -175,74 +182,6 @@
     </div>
 </header>
 
-%{--<!-- About Section -->
-<section id="about" class="content-section text-center"
-         style="background-image:url('${resource(dir: "images", file: "airplane1.jpg")}')">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <h2>About Mount Everest Import Export</h2>
-
-                <p>Buy Pashmina Online</p>
-
-            </div>
-        </div>
-    </div>
-</section>
-
-
-
-<!-- Contact Section -->
-<section id="contact" class="content-section text-center"
-         style="background-image:url('${resource(dir: "images", file: "maxresdefault.jpg")}')">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <h2>Contact Us</h2>
-
-                <p>Feel free to contact us at
-
-                </p>
-                <ul class="list-inline banner-social-buttons">
-                    <li class="list-inline-item">
-                        <a href="https://twitter.com" target="_blank" class="btn btn-default btn-lg">
-                            <i class="fa fa-twitter fa-fw"></i>
-                            <span class="network-name">Twitter</span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="https://github.com" target="_blank" class="btn btn-default btn-lg">
-                            <i class="fa fa-github fa-fw"></i>
-                            <span class="network-name">Github</span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="https://plus.google.com" target="_blank" class="btn btn-default btn-lg">
-                            <i class="fa fa-google-plus fa-fw"></i>
-                            <span class="network-name">Google+</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>--}%
-
-
-%{--
-<!-- Bootstrap core JavaScript -->
-<g:javascript src="jquery.min.js"></g:javascript>
-<g:javascript src="bootstrap.bundle.min.js"></g:javascript>
-
-<!-- Plugin JavaScript -->
-<g:javascript src="jquery.easing.min.js"></g:javascript>
-
-<!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
-
-<!-- Custom scripts for this template -->
-<g:javascript src="grayscale.min.js"></g:javascript>
-<r:layoutResources/>--}%
 
 <!-- Bootstrap core JavaScript -->
 <script src="../vendor/jquery/jquery.min.js"></script>
@@ -293,13 +232,16 @@ function addToCart(productId,userId) {
            data: {pId:productId,uId:userId},
 
            success: function(response){
-              console.log(response);
-              var added = response;
-              console.log("added:"+added)
+                console.log(response);
+                var added = response;
+
               if($.trim(added) == 'true'){
+
               alert("Successfully Added To Cart!!");
+
                 }
                 else{
+
                   alert("Item out of stock!!");
                 }
 
